@@ -28,7 +28,7 @@ void setup() {
   }
 
   if (rtc.lostPower()) {
-    // Ajusta o RTC com a hora correta se ele perdeu a alimentação
+    // Ajusta o RTC com a hora correta 
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   }
 
@@ -76,9 +76,9 @@ void loop() {
   lastButtonState = buttonState;
 
   // Controle automático com RTC:
-  // 4h30 (04:30) ou 16h30 (16:30) - horário para ligar o relé automaticamente
+  // 4h30 da madrugada ou 16h30 da tarde - horário para ligar o relé automaticamente
   if (((now.hour() == 4 && now.minute() == 30) || (now.hour() == 16 && now.minute() == 30)) && !autoRelayOn) {
-    if (moistureLevel < 500) {  // Apenas liga o relé se o solo estiver seco
+    if (moistureLevel < 500) {  // Apenas liga o relé se necessário, no caso, se esiver seco
       relayState = HIGH;
       digitalWrite(relayPin, HIGH);  // Liga o relé automaticamente
       autoStartTime = millis();      // Armazena o tempo de início automático
